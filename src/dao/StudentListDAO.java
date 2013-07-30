@@ -6,6 +6,7 @@ package dao;
 
 import domain.Student;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -13,16 +14,18 @@ import java.util.List;
  * @author sweal144
  */
 public class StudentListDAO implements StudentDAO {
-   private static ArrayList;
+   
+   private static Collection<Student> students = new ArrayList<>();
 
    @Override
    public void save(Student aStudent) {
-      Student.add(aStudent);
+      students.add(aStudent);
    }
-
+   
+  
    @Override
-   public List<Student> getStudents() {
-      return Student;
+   public Collection<Student> getStudents() {
+      return students;
    }
    
 }

@@ -90,7 +90,7 @@ public class Menu extends javax.swing.JFrame {
    }//GEN-LAST:event_btnAddActionPerformed
 
    private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
-      // TODO add your handling code here:
+      new StudentReport(this, true).setVisible(true);
    }//GEN-LAST:event_btnViewActionPerformed
 
    private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed

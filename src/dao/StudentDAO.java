@@ -5,6 +5,7 @@
 package dao;
 
 import domain.Student;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public interface StudentDAO {
    void save (Student aStudent);
-   List<Student> getStudents();
+   Collection<Student> getStudents();
    
    
 }

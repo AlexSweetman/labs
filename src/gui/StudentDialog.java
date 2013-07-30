@@ -4,7 +4,13 @@
  */
 package gui;
 
+import dao.StudentDAO;
+import dao.StudentListDAO;
+import domain.Major;
 import domain.Student;
+import gui.helpers.SimpleListModel;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -12,12 +18,20 @@ import domain.Student;
  */
 public class StudentDialog extends javax.swing.JDialog {
 
-   /**
-    * Creates new form StudentDialog
-    */
+   private StudentListDAO DAO = new StudentListDAO();
+   
    public StudentDialog(java.awt.Frame parent, boolean modal) {
       super(parent, modal);
       initComponents();
+      List<Major> majors = new ArrayList<Major>();
+      
+      Major m1 = new Major("Chemistry");
+      majors.add(m1);
+      Major m2 = new Major ("INFO");
+      majors.add(m2);
+      
+      cmbMajor.setModel(new SimpleListModel(majors));
+           
    }
 
    /**
@@ -34,6 +48,8 @@ public class StudentDialog extends javax.swing.JDialog {
       jLabel2 = new javax.swing.JLabel();
       txtID = new javax.swing.JTextField();
       btnSave = new javax.swing.JButton();
+      jLabel3 = new javax.swing.JLabel();
+      cmbMajor = new javax.swing.JComboBox();
 
       setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -55,23 +71,40 @@ public class StudentDialog extends javax.swing.JDialog {
          }
       });
 
+      jLabel3.setText("Major");
+      jLabel3.setName("jLabel3"); // NOI18N
+
+      cmbMajor.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+      cmbMajor.setName("cmbMajor"); // NOI18N
+      cmbMajor.addActionListener(new java.awt.event.ActionListener() {
+         public void actionPerformed(java.awt.event.ActionEvent evt) {
+            cmbMajorActionPerformed(evt);
+         }
+      });
+
       javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
       getContentPane().setLayout(layout);
       layout.setHorizontalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
          .addGroup(layout.createSequentialGroup()
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(jLabel1)
-               .addComponent(jLabel2))
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-               .addComponent(txtID)
-               .addComponent(txtName))
+               .addGroup(layout.createSequentialGroup()
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(jLabel1)
+                     .addComponent(jLabel2))
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                     .addComponent(txtID, javax.swing.GroupLayout.DEFAULT_SIZE, 111, Short.MAX_VALUE)
+                     .addComponent(txtName)))
+               .addGroup(layout.createSequentialGroup()
+                  .addComponent(jLabel3)
+                  .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                  .addComponent(cmbMajor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
             .addContainerGap())
          .addGroup(layout.createSequentialGroup()
-            .addGap(66, 66, 66)
+            .addGap(51, 51, 51)
             .addComponent(btnSave)
-            .addContainerGap(79, Short.MAX_VALUE))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
       layout.setVerticalGroup(
          layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,8 +117,12 @@ public class StudentDialog extends javax.swing.JDialog {
                .addComponent(jLabel2)
                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+               .addComponent(jLabel3)
+               .addComponent(cmbMajor, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
             .addComponent(btnSave)
-            .addGap(0, 14, Short.MAX_VALUE))
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
       );
 
       pack();
@@ -94,9 +131,18 @@ public class StudentDialog extends javax.swing.JDialog {
    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
       String name = txtName.getText();
       int ID = Integer.parseInt(txtID.getText());
-      Student s = new Student(name, ID);
+      Major major = (Major) cmbMajor.getSelectedItem();
+      
+      Student s = new Student(name, ID, major);
+      
+      DAO.save(s);
+      
       System.out.println(s);
    }//GEN-LAST:event_btnSaveActionPerformed
+
+   private void cmbMajorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMajorActionPerformed
+      // TODO add your handling code here:
+   }//GEN-LAST:event_cmbMajorActionPerformed
 
    /**
     * @param args the command line arguments
@@ -141,8 +187,10 @@ public class StudentDialog extends javax.swing.JDialog {
    }
    // Variables declaration - do not modify//GEN-BEGIN:variables
    private javax.swing.JButton btnSave;
+   private javax.swing.JComboBox cmbMajor;
    private javax.swing.JLabel jLabel1;
    private javax.swing.JLabel jLabel2;
+   private javax.swing.JLabel jLabel3;
    private javax.swing.JTextField txtID;
    private javax.swing.JTextField txtName;
    // End of variables declaration//GEN-END:variables
