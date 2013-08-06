@@ -1,6 +1,6 @@
 package domain;
 
-public class Student {
+public class Student implements Comparable<Student>{
 
    private Integer id;
    private String name;
@@ -43,4 +43,11 @@ public class Student {
    public String toString() {
       return this.id + ", " + this.name + ", " + this.major;
    }
+
+    @Override
+    public int compareTo(Student anotherStudent) {
+        Integer myId = this.getId();
+        Integer theirId = anotherStudent.getId();
+        return myId.compareTo(theirId);
+    }
 }

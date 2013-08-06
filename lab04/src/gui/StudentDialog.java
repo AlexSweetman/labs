@@ -1,19 +1,27 @@
 package gui;
 
 import dao.StudentDAO;
-import dao.StudentListDAO;
+import dao.StudentCollectionsDAO;
 import domain.Student;
 
 public class StudentDialog extends javax.swing.JDialog {
 
-   private StudentDAO dao = new StudentListDAO();
+   private StudentDAO dao = new StudentCollectionsDAO();
    
    private Student student = new Student();
+   
 
-   public StudentDialog(java.awt.Frame parent, boolean modal) {
-      super(parent, modal);
+   public StudentDialog(java.awt.Window parent, boolean modal) {
+      super.setModal(modal);
       initComponents();
+      cmbMajor.setEditable(true);
+     
    }
+
+    public StudentDialog(java.awt.Window parent, boolean modal, String student){
+      this(parent, modal);
+      
+    }
 
    @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -60,6 +68,11 @@ public class StudentDialog extends javax.swing.JDialog {
         lblMajor.setName("lblMajor"); // NOI18N
 
         cmbMajor.setName("cmbMajor"); // NOI18N
+        cmbMajor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbMajorActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -123,6 +136,11 @@ public class StudentDialog extends javax.swing.JDialog {
 
       this.dispose();
    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void cmbMajorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbMajorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbMajorActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton btnSave;

@@ -3,13 +3,16 @@ package dao;
 import domain.Student;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import javax.swing.JList;
 
 /**
  * A DAO class for managing the storage of Students
  */
-public class StudentListDAO implements StudentDAO {
+public class StudentCollectionsDAO implements StudentDAO {
 
-   private static Collection<Student> students = new ArrayList<>();
+   private static Collection<Student> students = new HashSet<>();
+   private static Collection<Student> major = new ArrayList<>();
 
    /**
     * Adds a student to the DAO.
@@ -19,7 +22,14 @@ public class StudentListDAO implements StudentDAO {
    @Override
    public void save(Student student) {
       students.add(student);
+      major.add(student);
+      
    }
+
+    @Override
+    public void delete(Student student) {
+        
+    }
 
    /**
     * Returns all students that have been added to the DAO.
@@ -28,6 +38,11 @@ public class StudentListDAO implements StudentDAO {
     */
    @Override
    public Collection<Student> getAll() {
-      return students;
+      return students;         
+       
    }
+
+    @Override
+    public void delete(JList lstStudents) {
+    }
 }
